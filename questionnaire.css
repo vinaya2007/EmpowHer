@@ -1,0 +1,104 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff0f5;
+  padding: 30px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.questionnaire-container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 600px;
+  width: 100%;
+}
+
+h2 {
+  color: #c2185b;
+  margin-bottom: 10px;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+  font-weight: 600;
+  color: #444;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+input:focus, select:focus {
+  outline: none;
+  border-color: #c2185b;
+  box-shadow: 0 0 4px #f8bbd0;
+}
+
+.form-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.btn.primary {
+  background-color: #c2185b;
+  color: white;
+  border: none;
+}
+
+.btn.primary:hover {
+  background-color: #ad1457;
+}
+
+.btn.outline {
+  background-color: transparent;
+  border: 2px solid #c2185b;
+  color: #c2185b;
+}
+
+.btn.outline:hover {
+  background-color: #fce4ec;
+}
+
+.thank-you {
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.thank-you h3 {
+  color: #c2185b;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EmpowHer Questionnaire</title>
+  <link rel="stylesheet" href="questionnaire.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="questionnaire-container">
+    <h2>Take a few minutes to answer some questions about yourself</h2>
+    <p class="note">*Please note that all questions are optional, but are essential for personalizing your experience.</p>
+
+    <form class="questionnaire-form">
+      <label>Your Gender:</label>
+      <select id="gender">
+        <option value="" selected disabled>Select</option>
+        <option>Woman</option>
+        <option>Man</option>
+        <option>Non-binary</option>
+        <option>Prefer not to say</option>
+      </select>
+
+      <label>Your Marital Status:</label>
+      <select id="marital">
+        <option value="" selected disabled>Select</option>
+        <option>Single</option>
+        <option>Married</option>
+        <option>Divorced</option>
+        <option>Widowed</option>
+      </select>
+
+      <label>Do you have kids?</label>
+      <select id="kids">
+        <option value="" selected disabled>Select</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <label>What is the cost of your child(ren)’s education per year?</label>
+      <input type="number" id="educationCost" placeholder="₹ per year (optional)">
+
+      <label>Are you working?</label>
+      <select id="working">
+        <option value="" selected disabled>Select</option>
+        <option>Yes – Full Time</option>
+        <option>Yes – Part Time</option>
+        <option>No</option>
+        <option>Freelancer</option>
+      </select>
+
+      <label>What is your monthly income?</label>
+      <input type="number" id="income" placeholder="₹ per month (optional)">
+
+      <label>Enter tax amount on a yearly basis:</label>
+      <input type="number" id="tax" placeholder="₹ per year (optional)">
+
+      <label>Select your areas of expenditure (monthly):</label>
+      <input type="text" id="expenditure" placeholder="Eg. Rent, Groceries, Transport">
+
+      <label>Additional areas of expenditure:</label>
+      <input type="text" id="extraExpenditure" placeholder="Eg. Travel, Subscriptions, Gifts">
+
+      <button type="submit" class="btn">Submit</button>
+    </form>
+
+    <div class="thank-you" style="display: none;"></div>
+  </div>
+
+  <script>
+    document.querySelector(".questionnaire-form").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const income = parseFloat(document.getElementById("income").value || 0);
+      const tax = parseFloat(document.getElementById("tax").value || 0);
+      const education = parseFloat(document.getElementById("educationCost").value || 0);
+      const savings = income * 0.2;
+      const expenses = income - savings - tax;
+
+      const message = `
+        Based on your income of ₹${income}, we suggest saving ₹${savings.toFixed(2)} per month.<br>
+        Your estimated tax is ₹${tax}, and remaining ₹${expenses.toFixed(2)} should be used for monthly expenses like rent, groceries, etc.<br>
+        Allocate ₹${(education / 12).toFixed(2)} per month for children's education if applicable.
+      `;
+
+      const thankYou = document.querySelector(".thank-you");
+      thankYou.style.display = "block";
+      thankYou.innerHTML = `
+        <h3>Here's Your Financial Advice:</h3>
+        <p>${message}</p>
+        <canvas id="financeChart" width="300" height="300"></canvas>
+      `;
+
+      const ctx = document.getElementById("financeChart").getContext("2d");
+      new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: ["Expenses", "Savings", "Tax"],
+          datasets: [{
+            data: [expenses, savings, tax],
+            backgroundColor: ["#f06292", "#81c784", "#4fc3f7"]
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: "Your Monthly Financial Plan"
+            }
+          }
+        }
+      });
+
+      document.querySelector(".questionnaire-form").style.display = "none";
+    });
+  </script>
+</body>
+</html>
